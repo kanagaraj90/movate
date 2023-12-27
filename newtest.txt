@@ -1,1 +1,1 @@
-hello github automatic setup 
+hello github automatic setup for stage branch  
