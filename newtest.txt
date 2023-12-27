@@ -1,1 +1,1 @@
-Automatic cron setup completed 
+Automatic push  setup completed 
