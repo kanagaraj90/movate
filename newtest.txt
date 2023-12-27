@@ -1,1 +1,1 @@
-Comitt from stage branch 
+Automatic cron setup completed 
