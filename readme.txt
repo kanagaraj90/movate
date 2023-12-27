@@ -1,1 +1,2 @@
-mytest new test tets LAST committ 
+git new test tets LAST committ with cron job 
+
