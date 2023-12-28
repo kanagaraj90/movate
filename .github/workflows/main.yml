@@ -1,5 +1,5 @@
 
-    name: Deploy to Server
+name: Deploy to Server
 
 on:
   push:
@@ -21,4 +21,4 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} sretailbeautyunileve_admin@98.70.25.78 "cd /home/sretailbeautyunileve_admin/public_html && git pull origin stage 
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} sretailbeautyunileve_admin@98.70.25.78 "cd /home/sretailbeautyunileve_admin/public_html && git pull origin stage"
