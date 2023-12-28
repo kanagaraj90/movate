@@ -10,10 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-   - name: install ssh keys
-      # check this thread to understand why its needed:
-      # https://stackoverflow.com/a/70447517
-   - name: connect and pull
+         
+    - name: connect and pull
       run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.STAGE_BRANCH }} && git pull && exit"
     - name: cleanup
       run: rm -rf ~/.ssh
