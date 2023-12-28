@@ -1,4 +1,3 @@
-
 name: Deploy to Server
 
 on:
@@ -21,4 +20,4 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.STAGE_BRANCH }} && git pull && exit"
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} sretailbeautyunileve_admin@98.70.25.78 "cd /home/sretailbeautyunileve_admin/public_html && git pull origin stage"
