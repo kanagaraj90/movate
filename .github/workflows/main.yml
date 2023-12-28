@@ -1,22 +1,38 @@
+name: CI-SFTP
+ 
+# Controls when the action will run. 
 on:
+  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches:
-      - main
+    branches: [ stage ]
+#  pull_request:
+#    branches: [ stage ]
+ 
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
+ 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  run_pull:
-    name: run pull
+  # This workflow contains a single job called "SFTP"
+  deploy-via-sftp:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: install ssh keys
-      # check this thread to understand why its needed:
-      # https://stackoverflow.com/a/70447517
-      run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" >  /home/sretailbeautyunileve_admin/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} > /home/sretailbeautyunileve_admin/known_hosts
-    - name: connect and pull
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.STAGE_BRANCH }} && git pull && exit"
-    - name: cleanup
-      run: rm -rf /home/sretailbeautyunileve_admin/.ssh
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+          
+      - name: SFTP Deploy
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.1
+        with:
+          username: sretailbeautyunileve_admin
+          server: 98.70.25.78
+          port: 22 # default is 22
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+ 
+          
+          # will put all file under this path
+          local_path: ./* # default is ./*
+          # files will copy to under remote_path
+          remote_path: /home/sretailbeautyunileve_admin/pulic_html
+          
+          # sftp args
+          args: '-o ConnectTimeout=5'
