@@ -1,1 +1,1 @@
-Automatic push  setup completed 
+Automatic Github actions completed
