@@ -1,1 +1,1 @@
-Automation comitt from github actions
+Automation comitt from github actions with new location
