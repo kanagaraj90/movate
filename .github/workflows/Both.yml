@@ -19,8 +19,17 @@ jobs:
         echo "${{ secrets.SSH_PRIVATEKEY_SERVER2 }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST_SERVER1 }} > ~/.ssh/known_hosts
         ssh-keyscan -H ${{ secrets.SSH_HOST_SERVER2 }} > ~/.ssh/known_hosts
-    - name: connect and pull
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_SERVER1 }} "cd ${{ secrets.WORK_DIR }}  && git checkout ${{ secrets.STAGE_BRANCH }} && git pull origin stage && exit"
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_SERVER2 }} "cd ${{ secrets.WORK_DIR }}  && git checkout ${{ secrets.STAGE_BRANCH }} && git pull origin stage && exit"
+
+    - name: Deploy to Server 1    
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_SERVER1 }} "cd ${{ secrets.WORK_DIR }}  && git checkout ${{ secrets.STAGE_BRANCH }} && git pull origin stage && exit"
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_SERVER2 }} 
+
+    - name: Deploy to Server 2    
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_SERVER1 }} "cd ${{ secrets.WORK_DIR }}  && git checkout ${{ secrets.STAGE_BRANCH }} && git pull origin stage && exit"
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_SERVER2 }}
     - name: cleanup
       run: rm -rf ~/.ssh
