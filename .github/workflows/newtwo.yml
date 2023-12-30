@@ -44,4 +44,4 @@ jobs:
 
       - name: Deploy to Server 2
         run: |
-          ssh -o StrictHostKeyChecking=yes ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_SERVER2 }} "cd ${{ secrets.WORK_DIR }}  && git checkout ${{ secrets.STAGE_BRANCH }} && git pull origin stage && exit"
+          ssh -o StrictHostKeyChecking=yes ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_SERVER2 }} "cd ${{ secrets.WORK_DIR }}  && git checkout ${{ secrets.STAGE_BRANCH }} && git pull origin stage && ${{ secrets.WORK_DIR }} && exit"
