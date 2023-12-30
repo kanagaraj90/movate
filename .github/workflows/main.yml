@@ -22,7 +22,7 @@ jobs:
 
     - name: Deploy to Server 1
       run: |
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_SERVER2 }} "cd ${{ secrets.WORK_DIR }}  && git checkout ${{ secrets.STAGE_BRANCH }} && git pull origin stage && exit"
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_SERVER1 }} "cd ${{ secrets.WORK_DIR }}  && git checkout ${{ secrets.STAGE_BRANCH }} && git pull origin stage && exit"
     
     - name: Deploy to Server 2
       run: |
