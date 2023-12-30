@@ -15,15 +15,14 @@ jobs:
 
     - name: Set up SSH
       run: |
-        mkdir -p ~/.ssh
-        echo "$SSH_PRIVATEKEY_SERVER2" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        echo "$SSH_PRIVATEKEY_SERVER2" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST_SERVER1 }} > ~/.ssh/known_hosts
         ssh-keyscan -H ${{ secrets.SSH_HOST_SERVER2 }} > ~/.ssh/known_hosts
 
     - name: Deploy to Server 1
       run: |
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_SERVER1 }} "cd ${{ secrets.WORK_DIR }}  && git checkout ${{ secrets.STAGE_BRANCH }} && git pull origin stage && exit"
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_SERVER2 }} "cd ${{ secrets.WORK_DIR }}  && git checkout ${{ secrets.STAGE_BRANCH }} && git pull origin stage && exit"
     
     - name: Deploy to Server 2
       run: |
