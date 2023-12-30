@@ -1,2 +1,2 @@
-Server 1
-server 2
+Server 1 verified 
+server 2 verified
