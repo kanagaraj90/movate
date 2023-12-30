@@ -3,7 +3,7 @@ name: Deploy to Servers
 on:
   push:
     branches:
-      - stage
+      - main
 
 jobs:
   deploy:
@@ -20,14 +20,14 @@ jobs:
 
       - name: Add Known Hosts
         run: |
-          ssh-keyscan -H 98.70.39.120 >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.SSH_HOST_SERVER1 }} >> ~/.ssh/known_hosts
           ssh-keyscan -H 98.70.25.78 >> ~/.ssh/known_hosts
           # Add more lines if you have additional servers
 
       - name: Deploy to Server 1
         run: |
-          ssh -o StrictHostKeyChecking=yes root@98.70.39.120 "cd /data/stage.retailbeauty.unilever.com/public_html && git pull origin stage"
-
+          ssh -o StrictHostKeyChecking=yes ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_SERVER1 }} "cd ${{ secrets.WORK_DIR }}  && git checkout ${{ secrets.STAGE_BRANCH }} && git pull origin stage && exit"
+          
       - name: Deploy to Server 2
         run: |
           ssh -o StrictHostKeyChecking=yes root@98.70.25.78 "cd /data/stage.retailbeauty.unilever.com/public_html && git pull origin stage"
