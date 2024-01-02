@@ -1,1 +1,1 @@
-hello github automatic setup for stage branch  
+key testing version1 new
